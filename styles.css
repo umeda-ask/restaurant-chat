@@ -86,7 +86,7 @@
     border: 1px solid #ccc;
     font-size: 1.2vw;
     overflow-x: hidden;
-    max-width: 100%;
+    max-width: 70%;
 }
 
 .chatbot-left::before {
@@ -180,7 +180,7 @@
 }
 
 .choice-button {
-    background: pink;
+    background: #0078d4;;
     color: white;
     border: none;
     padding: 2%;
@@ -208,8 +208,8 @@ img.openIcon {
     object-fit: contain;
 }
 
-.flatpickr-calendar.inline {
-    width: 100% !important;
+.flatpickr-calendar.hasTime.animate.inline {
+    width: 100%;
 }
 
 @media (max-width: 768px) {

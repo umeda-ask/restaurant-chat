@@ -27,23 +27,29 @@ let userName = '', userAddress = '', userPhone = '', userInquiry = '', userAppoi
 
 let appointmentFlag = false
 
-const link = document.createElement('link');
-link.rel = 'stylesheet';
-link.href = 'https://umeda-ask.github.io/chat-sunpart/styles.css';
-document.head.appendChild(link);
+// const link = document.createElement('link');
+// link.rel = 'stylesheet';
+// link.href = 'https://umeda-ask.github.io/chat-sunpart/styles.css';
+// document.head.appendChild(link);
 
 const css = document.createElement('link')
 css.rel = 'stylesheet';
 css.href = 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css';
 document.head.appendChild(css)
 
-const script = document.createElement('script')
+const script = document.createElement('script');
 script.src = 'https://cdn.jsdelivr.net/npm/flatpickr';
-document.head.appendChild(script)
-
-const localization = document.createElement('script')
-localization.src = "https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js"
-document.head.appendChild(localization)
+script.onload = function () {
+    const localization = document.createElement('script');
+    localization.src = "https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ja.js";
+    localization.onload = function () {
+    // ✅ 両方読み込まれたあとにflatpickrを初期化
+    console.log("flatpickrと日本語ロケールが準備完了");
+    // flatpickr(document.getElementById("calendar"), { locale: "ja", ... });
+    };
+    document.head.appendChild(localization);
+};
+document.head.appendChild(script);
 
 const emailJs = document.createElement("script")
 emailJs.src = "https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
@@ -263,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let nextCount;
         if (rCount === 12 && choiceIndex === 0) { // はい
             sendEmail();
-            nextCount = 13;
+            nextCount = 12;
         } else if (rCount === 12 && choiceIndex === 1) { // 入力しなおす
             if (appointmentFlag){
                 if (typeof calendarCount == "undefined"){
@@ -302,18 +308,33 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('EmailJS is not loaded.');
             return;
         }
-        emailjs.send("askchatmail", "template_uxrrqkp", {
-            professional_office: "テスト",
+        emailjs.init("PUBLIC_KEY");
+        if (!appointmentFlag){
+            emailjs.send("askchatmail", "template_we6g9zk", {
+            professional_office: "テスト飲食店",
             user_name: userName,
             user_address: userAddress,
             user_phone: userPhone,
             user_inquiry: userInquiry,
             professional_email: "zibo640@fuwamofu.com"
-        }).then(function(response) {
+            }).then(function(response) {
             console.log('SUCCESS!', response.status, response.text);
-        }, function(error) {
-            console.log('FAILED...', error);
-        });
+            }, function(error) {
+                console.log('FAILED...', error);
+            });
+        } else {
+            emailjs.send("askchatmail", "template_ng1b5qp", {
+                professional_office: "テスト飲食店",
+                user_name: userName,
+                user_phone: userPhone,
+                user_appointment: userAppointment,
+                professional_email: "zibo640@fuwamofu.com"
+            }).then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+            }, function(error) {
+                console.log('FAILED...', error);
+            });
+        }
     }
 
     function scrollChatToBottom() {
