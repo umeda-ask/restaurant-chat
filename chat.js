@@ -26,7 +26,6 @@ let userData = [];
 let userName = '', userAddress = '', userPhone = '', userInquiry = '', userAppointment = ''
 
 let appointmentFlag = false
-
 // const link = document.createElement('link');
 // link.rel = 'stylesheet';
 // link.href = 'https://umeda-ask.github.io/chat-sunpart/styles.css';
@@ -185,7 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 sendMessageButton.disabled = true;
             } else if (chat.option === 'normal') {
-                // div.textContent = chat.text
                 div.innerHTML = chat.text.replace(/\n/g, '<br>');
                 sendMessageButton.disabled = false;
 
@@ -201,9 +199,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
                     div.appendChild(backBtn);
                 }
-            } else if(chat.option == ''){
-
             } else if(chat.option == 'calendar'){
+                const oldInput = document.getElementById("calendar")
+                if (oldInput && oldInput._flatpickr){
+                    oldInput._flatpickr.destroy();
+                    oldInput.remove(); 
+                }
                 const title = document.createElement("div");
                 title.classList.add("choice-title");
                 title.textContent = chat.text.title;
@@ -211,19 +212,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let input = document.createElement("input")
                 input.setAttribute("type", "text")
+                input.setAttribute("id", "calendar")
                 input.setAttribute("data-input", "")
-                let calendar;
-
-                if (typeof calendarCount === "undefined"){
-                    input.setAttribute("id", "calendar")
-                    div.appendChild(input)
-                    calendar = document.getElementById("calendar")
-                } else if(calendarCount >=1){
-                    input.setAttribute("id", `calendar_${calendarCount}`)
-                    div.appendChild(input)
-                    calendar = document.getElementById(`calendar_${calendarCount}`)
-                }
+                div.appendChild(input)
+                let calendar = document.getElementById("calendar")
                 const messageInput = document.getElementById("messageInput")
+
                 const instance = flatpickr(calendar, {
                     altInput: true,
                     altFormat: "Y年m月d日 H:i",
@@ -272,15 +266,10 @@ document.addEventListener('DOMContentLoaded', () => {
             nextCount = 12;
         } else if (rCount === 12 && choiceIndex === 1) { // 入力しなおす
             if (appointmentFlag){
-                if (typeof calendarCount == "undefined"){
-                    calendarCount = 1;
-                }else {
-                    calendarCount++;
-                }
                 nextCount = 4;
             }
             else {
-                nextCount = 6
+                nextCount = 6;
             }
         } else if (rCount === 2) {
             switch (choiceIndex) {
@@ -330,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 user_appointment: userAppointment,
                 professional_email: "zibo640@fuwamofu.com"
             }).then(function(response) {
+                appointmentFlag = false;
                 console.log('SUCCESS!', response.status, response.text);
             }, function(error) {
                 console.log('FAILED...', error);
