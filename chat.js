@@ -26,10 +26,10 @@ let userData = [];
 let userName = '', userAddress = '', userPhone = '', userInquiry = '', userAppointment = ''
 
 let appointmentFlag = false
-// const link = document.createElement('link');
-// link.rel = 'stylesheet';
-// link.href = 'https://umeda-ask.github.io/chat-sunpart/styles.css';
-// document.head.appendChild(link);
+const link = document.createElement('link');
+link.rel = 'stylesheet';
+link.href = 'https://umeda-ask.github.io/restaurant-chat/styles.css';
+document.head.appendChild(link);
 
 const css = document.createElement('link')
 css.rel = 'stylesheet';

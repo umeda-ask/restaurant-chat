@@ -24,7 +24,7 @@
 }
 
 #chatbotHeader {
-    background: #0078d4;
+    background: #6e4d3a;
     color: white;
     padding: 3%;
     cursor: pointer;
@@ -49,7 +49,7 @@
     flex: 1;
     padding: 3%;
     overflow-y: auto;
-    background-color: #f0f0f0;
+    background-color: #fdfaf5;
 }
 
 #chatbotMessages ul {
@@ -136,7 +136,7 @@
 
 #sendMessage {
     padding: 3%;
-    background: #0078d4;
+    background: #6e4d3a;
     color: white;
     border: none;
     cursor: pointer;
@@ -156,7 +156,7 @@
     right: 2%;
     width: 6vw;
     height: 6vw;
-    background: #0078d4;
+    background: #6e4d3a;
     border: none;
     cursor: pointer;
     border-radius: 50%;
@@ -180,7 +180,7 @@
 }
 
 .choice-button {
-    background: #0078d4;;
+    background: #6e4d3a;;
     color: white;
     border: none;
     padding: 2%;
