@@ -194,7 +194,11 @@
 }
 
 .choice-button:hover {
-    background: #005bb5;
+    background: #d4a373;
+}
+
+#openChatbot:hover {
+    background: #d4a373;
 }
 
 .choice-button-disabled {
